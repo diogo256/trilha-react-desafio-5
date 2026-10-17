@@ -6,6 +6,14 @@ export interface Post {
     description?: string;
     body?: string;
     created_at?: string;
+    name?: string;
+}
+
+export interface CreatePostData {
+    title: string;
+    description: string;
+    body: string;
+    name: string;
 }
 
 export const getPosts = async (): Promise<Post[]> => {
@@ -26,4 +34,14 @@ export const getPostBySlug = async (id: string | number): Promise<Partial<Post>>
     }
 
     return {};
+}
+
+export const createPost = async (postData: CreatePostData): Promise<Post | null> => {
+    const { data } = await api.post<Post>('/posts', postData);
+
+    if (data) {
+        return data;
+    }
+
+    return null;
 }

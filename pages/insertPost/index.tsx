@@ -9,7 +9,7 @@ import MaxHeightTextarea from '../../components/form/MaxHeightTextarea';
 import Header from '../../components/Header';
 import Layout, { GradientBackground } from '../../components/Layout';
 import { getGlobalData, GlobalData } from '../../utils/global-data';
-import { api } from '../../services/api';
+import { createPost } from '../../utils/mdx-utils';
 
 interface Props {
   globalData: GlobalData;
@@ -55,14 +55,12 @@ export default function InsertPost({ globalData }: Props) {
   const onSubmit = async (data: InsertPostFormData) => {
     try {
       // Mapeia o campo `author` do formulário para a coluna `name` no Supabase
-      const payload = {
+      await createPost({
         title: data.title,
         name: data.author,
         description: data.description,
         body: data.body,
-      };
-
-      await api.post('/posts', payload);
+      });
       alert('Post publicado com sucesso!');
       reset();
     } catch (error) {
