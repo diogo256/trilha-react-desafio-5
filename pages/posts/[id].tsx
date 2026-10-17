@@ -9,6 +9,9 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Layout, { GradientBackground } from '../../components/Layout';
 import SEO from '../../components/SEO';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 
 
 const components = {
@@ -47,7 +50,9 @@ export default function PostPage({
         </header>
         <main>
           <article className="prose dark:prose-dark">
-            {posts.body}
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {posts.body}              
+            </ReactMarkdown>
           </article>
         </main>
       </article>

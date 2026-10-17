@@ -1,14 +1,26 @@
 import Link from 'next/link';
-import { getPosts } from '../utils/mdx-utils';
+import { GetServerSideProps } from 'next';
+import { getPosts, Post } from '../utils/mdx-utils';
+import { getGlobalData, GlobalData } from '../utils/global-data';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Layout, { GradientBackground } from '../components/Layout';
 import ArrowIcon from '../components/ArrowIcon';
-import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
 
-export default function Index({ posts, globalData }) {
+interface Props {
+  posts: Post[];
+  globalData: GlobalData;
+}
+
+export default function Index({ posts, globalData }: Props) {
+  const postOrdered = (posts || []).slice().sort((a, b) => {
+    const dateA = new Date(a.date || a.created_at || 0).getTime();
+    const dateB = new Date(b.date || b.created_at || 0).getTime();
+    return dateB - dateA;
+  });
+
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
@@ -18,7 +30,7 @@ export default function Index({ posts, globalData }) {
           {globalData.blogTitle}
         </h1>
         <ul className="w-full">
-          {posts.map((post) => (
+          {postOrdered.map((post) => (
             <li
               key={post.id}
               className="md:first:rounded-t-lg md:last:rounded-b-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 border-b-0 last:border-b hover:border-b hovered-sibling:border-t-0"
@@ -59,10 +71,9 @@ export default function Index({ posts, globalData }) {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const posts = await getPosts();
-  const globalData = getGlobalData()
-
+  const globalData = getGlobalData();
 
   return { props: { posts, globalData } };
-}
+};

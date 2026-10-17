@@ -1,8 +1,13 @@
 import classNames from 'classnames';
-import { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import styles from './Layout.module.css';
 
-export function GradientBackground({ variant, className }) {
+export interface GradientBackgroundProps {
+  variant: 'large' | 'small' | string;
+  className?: string;
+}
+
+export function GradientBackground({ variant, className }: GradientBackgroundProps) {
   const classes = classNames(
     {
       [styles.colorBackground]: variant === 'large',
@@ -14,7 +19,12 @@ export function GradientBackground({ variant, className }) {
   return <div className={classes} />;
 }
 
-export default function Layout({ children, maxWidth = 'max-w-2xl' }) {
+export interface LayoutProps {
+  children: ReactNode;
+  maxWidth?: string;
+}
+
+export default function Layout({ children, maxWidth = 'max-w-2xl' }: LayoutProps) {
   const setAppTheme = () => {
     const darkMode = localStorage.getItem('theme') === 'dark';
     const lightMode = localStorage.getItem('theme') === 'light';

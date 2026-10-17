@@ -41,7 +41,7 @@
     "react-hook-form": "^7.90.0",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^3.0.1",
+    "remark-gfm": "^4.0.1",
     "yup": "^1.7.1"
   },
   "devDependencies": {

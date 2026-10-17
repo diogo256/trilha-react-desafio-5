@@ -7,6 +7,7 @@ export interface Post {
     body?: string;
     created_at?: string;
     name?: string;
+    date?: string;
 }
 
 export interface CreatePostData {
