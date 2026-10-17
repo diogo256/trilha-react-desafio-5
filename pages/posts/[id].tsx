@@ -1,12 +1,9 @@
-import { getGlobalData } from '../../utils/global-data';
-import {
-  getPostBySlug,
-} from '../../utils/mdx-utils';
+import { getGlobalData, GlobalData } from '../../utils/global-data';
+import { getPostBySlug, Post } from '../../utils/mdx-utils';
 
-import { MDXRemote } from 'next-mdx-remote';
+import { GetServerSideProps } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import Head from 'next/head';
-import Link from 'next/link';
-import ArrowIcon from '../../components/ArrowIcon';
 import CustomLink from '../../components/CustomLink';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -19,10 +16,19 @@ const components = {
   Head,
 };
 
+interface Props {
+  posts: Post;
+  globalData: GlobalData;
+}
+
+interface Params extends ParsedUrlQuery {
+  id: string;
+}
+
 export default function PostPage({
   posts,
   globalData,
-}) {
+}: Props) {
   return (
     <Layout>
       <SEO
@@ -58,10 +64,9 @@ export default function PostPage({
   );
 }
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ params }) => {
   const globalData = getGlobalData();
-  const posts = await getPostBySlug(params.id);
- 
+  const posts = await getPostBySlug(params!.id); 
 
   return {
     props: {
