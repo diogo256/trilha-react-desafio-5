@@ -24,7 +24,7 @@ export interface LayoutProps {
   maxWidth?: string;
 }
 
-export default function Layout({ children, maxWidth = 'max-w-2xl' }: LayoutProps) {
+export default function Layout({ children, maxWidth = 'max-w-4xl' }: LayoutProps) {
   const setAppTheme = () => {
     const darkMode = localStorage.getItem('theme') === 'dark';
     const lightMode = localStorage.getItem('theme') === 'light';

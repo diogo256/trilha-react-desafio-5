@@ -12,6 +12,7 @@ import SEO from '../../components/SEO';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import React from 'react';
 
 
 const components = {
@@ -49,7 +50,7 @@ export default function PostPage({
           )}
         </header>
         <main>
-          <article className="prose dark:prose-dark">
+          <article className="prose dark:prose-dark max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {posts.body}              
             </ReactMarkdown>
