@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -74,6 +75,19 @@ export default function InsertPost({ globalData }: Props) {
       <Header name={globalData.name} />
 
       <article className="w-full px-6 md:px-0">
+        <div className="flex justify-between items-center mb-6">
+          <Link href="/">
+            <a className="inline-flex items-center text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition">
+              ← Voltar para o Blog
+            </a>
+          </Link>
+          <Link href="/export">
+            <a className="inline-flex items-center text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition">
+              Exportar Conteúdo 📦
+            </a>
+          </Link>
+        </div>
+
         <h1 className="text-3xl md:text-5xl font-bold text-center mb-8 text-gray-900 dark:text-white">
           Insert Post
         </h1>

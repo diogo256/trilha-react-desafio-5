@@ -26,9 +26,23 @@ export default function Index({ posts, globalData }: Props) {
       <SEO title={globalData.name} description={globalData.blogTitle} />
       <Header name={globalData.name} />
       <main className="w-full">
-        <h1 className="text-3xl lg:text-5xl text-center mb-12">
+        <h1 className="text-3xl lg:text-5xl text-center mb-8">
           {globalData.blogTitle}
         </h1>
+
+        <div className="flex justify-center items-center gap-3 mb-12">
+          <Link href="/insertPost">
+            <a className="inline-flex items-center text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-primary text-white hover:opacity-90 active:scale-95 transition shadow-sm">
+              + Novo Post
+            </a>
+          </Link>
+          <Link href="/export">
+            <a className="inline-flex items-center text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white/60 dark:bg-black/40 hover:bg-white dark:hover:bg-black/60 text-gray-800 dark:text-gray-200 active:scale-95 transition shadow-sm">
+              📦 Exportar Conteúdo
+            </a>
+          </Link>
+        </div>
+
         <ul className="w-full">
           {postOrdered.map((post) => (
             <li
